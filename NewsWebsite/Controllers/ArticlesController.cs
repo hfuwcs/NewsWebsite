@@ -40,7 +40,9 @@ namespace NewsWebsite.Controllers
                 NOIDUNG = bAIVIET.NOIDUNG,
                 TenTheLoai = db.THELOAI.Where(a => a.ID_THELOAI == bAIVIET.ID_THELOAI).FirstOrDefault().TENTHELOAI,
                 NGAYDANG = bAIVIET.NGAYDANG,
-                TenTacGia = db.TAIKHOAN.Where(a => a.ID_TAIKHOAN == bAIVIET.TACGIA_ID).FirstOrDefault().HOTEN
+                TenTacGia = db.TAIKHOAN.Where(a => a.ID_TAIKHOAN == bAIVIET.TACGIA_ID).FirstOrDefault().HOTEN,
+                DiemDanhGia = bAIVIET.DANHGIA.Average(a => a.DIEM),
+                CacBinhLuan = db.BINHLUAN.Where(a => a.ID_BAIVIET == ID_BAIVIET).ToList()
             };
             return View(articlesView);
         }

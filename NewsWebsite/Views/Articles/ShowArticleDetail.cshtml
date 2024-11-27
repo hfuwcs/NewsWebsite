@@ -57,7 +57,24 @@
         <dd>
             @Html.DisplayFor(model => model.TenTacGia)
         </dd>
-
+        <dt>
+            Điểm đánh giá
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiemDanhGia)
+        </dd>
+        <dt>
+            Các bình luận
+        </dt>
+        @foreach (var item in Model.CacBinhLuan)
+        {
+            <dd>
+                @Html.DisplayFor(modelItem => item.NOIDUNG)
+            </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => item.NGAYBINHLUAN)
+            </dd>
+        }
     </dl>
 </div>
 <p>
