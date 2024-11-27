@@ -1,0 +1,66 @@
+﻿@model NewsWebsite.Models.ArticlesViewModel
+
+@{
+    ViewBag.Title = "ShowArticleDetail";
+}
+
+<h2>ShowArticleDetail</h2>
+
+<div>
+    <h4>ArticlesViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_BAIVIET)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_BAIVIET)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIEUDE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIEUDE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOIDUNG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOIDUNG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenTheLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenTheLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NGAYDANG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYDANG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenTacGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenTacGia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

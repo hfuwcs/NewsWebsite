@@ -1,0 +1,59 @@
+﻿@model IEnumerable<NewsWebsite.Models.ArticlesViewModel>
+
+@{
+    ViewBag.Title = "ShowArticles";
+}
+
+<h2>ShowArticles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_BAIVIET)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIEUDE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOIDUNG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTheLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NGAYDANG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTacGia)
+        </th>
+        <th>Xem chi tiết</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_BAIVIET)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIEUDE)
+        </td>
+        <td>
+            @Html.TextAreaFor(modelItem => item.NOIDUNG, new { @maxlength = "50" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTheLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NGAYDANG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTacGia)
+        </td>
+        <td>@Html.ActionLink("Xem chi tiết", "ShowArticleDetail", "Articles", new { ID_BAIVIET = item.ID_BAIVIET },new { @class = "btn btn-primary"})</td>
+    </tr>
+}
+
+</table>

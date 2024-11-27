@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TinTucDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BAIVIET">
+          <Key>
+            <PropertyRef Name="ID_BAIVIET" />
+          </Key>
+          <Property Name="ID_BAIVIET" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIEUDE" Type="nvarchar" MaxLength="200" />
+          <Property Name="NOIDUNG" Type="nvarchar(max)" />
+          <Property Name="ID_THELOAI" Type="int" />
+          <Property Name="NGAYDANG" Type="date" />
+          <Property Name="TACGIA_ID" Type="int" />
+          <Property Name="TRANGTHAI" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="BINHCHON">
+          <Key>
+            <PropertyRef Name="ID_BINHCHON" />
+          </Key>
+          <Property Name="ID_BINHCHON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_BAIVIET" Type="int" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="GIATRI" Type="nvarchar" MaxLength="10" />
+          <Property Name="NGAYBINHCHON" Type="date" />
+        </EntityType>
+        <EntityType Name="BINHLUAN">
+          <Key>
+            <PropertyRef Name="ID_BINHLUAN" />
+          </Key>
+          <Property Name="ID_BINHLUAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_BAIVIET" Type="int" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="NOIDUNG" Type="nvarchar" MaxLength="500" />
+          <Property Name="NGAYBINHLUAN" Type="date" />
+        </EntityType>
+        <EntityType Name="DANHGIA">
+          <Key>
+            <PropertyRef Name="ID_DANHGIA" />
+          </Key>
+          <Property Name="ID_DANHGIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_BAIVIET" Type="int" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="DIEM" Type="int" />
+          <Property Name="NGAYDANHGIA" Type="date" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="ID_TAIKHOAN" />
+          </Key>
+          <Property Name="ID_TAIKHOAN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="100" />
+          <Property Name="DIENTHOAI" Type="nvarchar" MaxLength="15" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="30" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="30" />
+          <Property Name="NGAYDANGKY" Type="date" />
+          <Property Name="VAITRO" Type="nvarchar" MaxLength="20" />
+          <Property Name="NGAYSINH" Type="date" />
+          <Property Name="GIOITINH" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="THELOAI">
+          <Key>
+            <PropertyRef Name="ID_THELOAI" />
+          </Key>
+          <Property Name="ID_THELOAI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENTHELOAI" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BAIVIET_BC">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="BINHCHON" Type="Self.BINHCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="BINHCHON">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BAIVIET_BL">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="BINHLUAN" Type="Self.BINHLUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="BINHLUAN">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BAIVIET_DG">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="DANHGIA" Type="Self.DANHGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="DANHGIA">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TACGIA">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="TACGIA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THELOAI">
+          <End Role="THELOAI" Type="Self.THELOAI" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THELOAI">
+              <PropertyRef Name="ID_THELOAI" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="ID_THELOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_BC">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BINHCHON" Type="Self.BINHCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BINHCHON">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_BL">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BINHLUAN" Type="Self.BINHLUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BINHLUAN">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_DG">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="DANHGIA" Type="Self.DANHGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="DANHGIA">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TinTucDBModelStoreContainer">
+          <EntitySet Name="BAIVIET" EntityType="Self.BAIVIET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BINHCHON" EntityType="Self.BINHCHON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BINHLUAN" EntityType="Self.BINHLUAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DANHGIA" EntityType="Self.DANHGIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THELOAI" EntityType="Self.THELOAI" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BAIVIET_BC" Association="Self.FK_BAIVIET_BC">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="BINHCHON" EntitySet="BINHCHON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BAIVIET_BL" Association="Self.FK_BAIVIET_BL">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="BINHLUAN" EntitySet="BINHLUAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BAIVIET_DG" Association="Self.FK_BAIVIET_DG">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="DANHGIA" EntitySet="DANHGIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TACGIA" Association="Self.FK_TACGIA">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THELOAI" Association="Self.FK_THELOAI">
+            <End Role="THELOAI" EntitySet="THELOAI" />
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_BC" Association="Self.FK_USER_BC">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BINHCHON" EntitySet="BINHCHON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_BL" Association="Self.FK_USER_BL">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BINHLUAN" EntitySet="BINHLUAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_DG" Association="Self.FK_USER_DG">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="DANHGIA" EntitySet="DANHGIA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TinTucDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BAIVIET">
+          <Key>
+            <PropertyRef Name="ID_BAIVIET" />
+          </Key>
+          <Property Name="ID_BAIVIET" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIEUDE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_THELOAI" Type="Int32" />
+          <Property Name="NGAYDANG" Type="DateTime" Precision="0" />
+          <Property Name="TACGIA_ID" Type="Int32" />
+          <Property Name="TRANGTHAI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BINHCHON" Relationship="Self.FK_BAIVIET_BC" FromRole="BAIVIET" ToRole="BINHCHON" />
+          <NavigationProperty Name="BINHLUAN" Relationship="Self.FK_BAIVIET_BL" FromRole="BAIVIET" ToRole="BINHLUAN" />
+          <NavigationProperty Name="DANHGIA" Relationship="Self.FK_BAIVIET_DG" FromRole="BAIVIET" ToRole="DANHGIA" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_TACGIA" FromRole="BAIVIET" ToRole="TAIKHOAN" />
+          <NavigationProperty Name="THELOAI" Relationship="Self.FK_THELOAI" FromRole="BAIVIET" ToRole="THELOAI" />
+        </EntityType>
+        <EntityType Name="BINHCHON">
+          <Key>
+            <PropertyRef Name="ID_BINHCHON" />
+          </Key>
+          <Property Name="ID_BINHCHON" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_BAIVIET" Type="Int32" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="GIATRI" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYBINHCHON" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_BAIVIET_BC" FromRole="BINHCHON" ToRole="BAIVIET" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_USER_BC" FromRole="BINHCHON" ToRole="TAIKHOAN" />
+        </EntityType>
+        <EntityType Name="BINHLUAN">
+          <Key>
+            <PropertyRef Name="ID_BINHLUAN" />
+          </Key>
+          <Property Name="ID_BINHLUAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_BAIVIET" Type="Int32" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYBINHLUAN" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_BAIVIET_BL" FromRole="BINHLUAN" ToRole="BAIVIET" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_USER_BL" FromRole="BINHLUAN" ToRole="TAIKHOAN" />
+        </EntityType>
+        <EntityType Name="DANHGIA">
+          <Key>
+            <PropertyRef Name="ID_DANHGIA" />
+          </Key>
+          <Property Name="ID_DANHGIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_BAIVIET" Type="Int32" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="DIEM" Type="Int32" />
+          <Property Name="NGAYDANHGIA" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_BAIVIET_DG" FromRole="DANHGIA" ToRole="BAIVIET" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK_USER_DG" FromRole="DANHGIA" ToRole="TAIKHOAN" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="ID_TAIKHOAN" />
+          </Key>
+          <Property Name="ID_TAIKHOAN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DIACHI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DIENTHOAI" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="HOTEN" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYDANGKY" Type="DateTime" Precision="0" />
+          <Property Name="VAITRO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_TACGIA" FromRole="TAIKHOAN" ToRole="BAIVIET" />
+          <NavigationProperty Name="BINHCHON" Relationship="Self.FK_USER_BC" FromRole="TAIKHOAN" ToRole="BINHCHON" />
+          <NavigationProperty Name="BINHLUAN" Relationship="Self.FK_USER_BL" FromRole="TAIKHOAN" ToRole="BINHLUAN" />
+          <NavigationProperty Name="DANHGIA" Relationship="Self.FK_USER_DG" FromRole="TAIKHOAN" ToRole="DANHGIA" />
+        </EntityType>
+        <EntityType Name="THELOAI">
+          <Key>
+            <PropertyRef Name="ID_THELOAI" />
+          </Key>
+          <Property Name="ID_THELOAI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTHELOAI" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BAIVIET" Relationship="Self.FK_THELOAI" FromRole="THELOAI" ToRole="BAIVIET" />
+        </EntityType>
+        <Association Name="FK_BAIVIET_BC">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="BINHCHON" Type="Self.BINHCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="BINHCHON">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BAIVIET_BL">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="BINHLUAN" Type="Self.BINHLUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="BINHLUAN">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BAIVIET_DG">
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="0..1" />
+          <End Role="DANHGIA" Type="Self.DANHGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BAIVIET">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Principal>
+            <Dependent Role="DANHGIA">
+              <PropertyRef Name="ID_BAIVIET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TACGIA">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="TACGIA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THELOAI">
+          <End Role="THELOAI" Type="Self.THELOAI" Multiplicity="0..1" />
+          <End Role="BAIVIET" Type="Self.BAIVIET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THELOAI">
+              <PropertyRef Name="ID_THELOAI" />
+            </Principal>
+            <Dependent Role="BAIVIET">
+              <PropertyRef Name="ID_THELOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_BC">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BINHCHON" Type="Self.BINHCHON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BINHCHON">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_BL">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="BINHLUAN" Type="Self.BINHLUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="BINHLUAN">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_DG">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="DANHGIA" Type="Self.DANHGIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="ID_TAIKHOAN" />
+            </Principal>
+            <Dependent Role="DANHGIA">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TinTucDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BAIVIET" EntityType="Self.BAIVIET" />
+          <EntitySet Name="BINHCHON" EntityType="Self.BINHCHON" />
+          <EntitySet Name="BINHLUAN" EntityType="Self.BINHLUAN" />
+          <EntitySet Name="DANHGIA" EntityType="Self.DANHGIA" />
+          <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" />
+          <EntitySet Name="THELOAI" EntityType="Self.THELOAI" />
+          <AssociationSet Name="FK_BAIVIET_BC" Association="Self.FK_BAIVIET_BC">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="BINHCHON" EntitySet="BINHCHON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BAIVIET_BL" Association="Self.FK_BAIVIET_BL">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="BINHLUAN" EntitySet="BINHLUAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BAIVIET_DG" Association="Self.FK_BAIVIET_DG">
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+            <End Role="DANHGIA" EntitySet="DANHGIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TACGIA" Association="Self.FK_TACGIA">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THELOAI" Association="Self.FK_THELOAI">
+            <End Role="THELOAI" EntitySet="THELOAI" />
+            <End Role="BAIVIET" EntitySet="BAIVIET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_BC" Association="Self.FK_USER_BC">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BINHCHON" EntitySet="BINHCHON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_BL" Association="Self.FK_USER_BL">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="BINHLUAN" EntitySet="BINHLUAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_DG" Association="Self.FK_USER_DG">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="DANHGIA" EntitySet="DANHGIA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TinTucDBModelStoreContainer" CdmEntityContainer="TinTucDBEntities">
+          <EntitySetMapping Name="BAIVIET">
+            <EntityTypeMapping TypeName="TinTucDBModel.BAIVIET">
+              <MappingFragment StoreEntitySet="BAIVIET">
+                <ScalarProperty Name="ID_BAIVIET" ColumnName="ID_BAIVIET" />
+                <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="ID_THELOAI" ColumnName="ID_THELOAI" />
+                <ScalarProperty Name="NGAYDANG" ColumnName="NGAYDANG" />
+                <ScalarProperty Name="TACGIA_ID" ColumnName="TACGIA_ID" />
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BINHCHON">
+            <EntityTypeMapping TypeName="TinTucDBModel.BINHCHON">
+              <MappingFragment StoreEntitySet="BINHCHON">
+                <ScalarProperty Name="ID_BINHCHON" ColumnName="ID_BINHCHON" />
+                <ScalarProperty Name="ID_BAIVIET" ColumnName="ID_BAIVIET" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="GIATRI" ColumnName="GIATRI" />
+                <ScalarProperty Name="NGAYBINHCHON" ColumnName="NGAYBINHCHON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BINHLUAN">
+            <EntityTypeMapping TypeName="TinTucDBModel.BINHLUAN">
+              <MappingFragment StoreEntitySet="BINHLUAN">
+                <ScalarProperty Name="ID_BINHLUAN" ColumnName="ID_BINHLUAN" />
+                <ScalarProperty Name="ID_BAIVIET" ColumnName="ID_BAIVIET" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="NGAYBINHLUAN" ColumnName="NGAYBINHLUAN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DANHGIA">
+            <EntityTypeMapping TypeName="TinTucDBModel.DANHGIA">
+              <MappingFragment StoreEntitySet="DANHGIA">
+                <ScalarProperty Name="ID_DANHGIA" ColumnName="ID_DANHGIA" />
+                <ScalarProperty Name="ID_BAIVIET" ColumnName="ID_BAIVIET" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DIEM" ColumnName="DIEM" />
+                <ScalarProperty Name="NGAYDANHGIA" ColumnName="NGAYDANHGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAIKHOAN">
+            <EntityTypeMapping TypeName="TinTucDBModel.TAIKHOAN">
+              <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="ID_TAIKHOAN" ColumnName="ID_TAIKHOAN" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="DIENTHOAI" ColumnName="DIENTHOAI" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="NGAYDANGKY" ColumnName="NGAYDANGKY" />
+                <ScalarProperty Name="VAITRO" ColumnName="VAITRO" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THELOAI">
+            <EntityTypeMapping TypeName="TinTucDBModel.THELOAI">
+              <MappingFragment StoreEntitySet="THELOAI">
+                <ScalarProperty Name="ID_THELOAI" ColumnName="ID_THELOAI" />
+                <ScalarProperty Name="TENTHELOAI" ColumnName="TENTHELOAI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
